@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos livre, manga, dvd ou jeux
+	{{ Livre.titre }}
+	{{ Livre.categorie }}
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier Vos livre, manga, dvd ou jeux</h1>
+	<center>
+		<section>
+			<div class="form-container">
+				{{ form_start(form,  {'attr': {'class': 'form-control'}}) }}
+				<center>
+					{{ form_row(form.titre, {'label': 'Titre'}) }}
+					{{ form_row(form.imageUrl, {'label': 'imageUrl'}) }}
+					<div style="margin-top: 10px;">
+						<img id="imagePreview" src="" alt="Prévisualisation de l'image" style="max-width: 150px; display: none;"/>
+					</div>
+					{{ form_row(form.categorie, {'label': 'Catégorie'}) }}
+					{{ form_row(form.tome, {'label': 'Tome'}) }}
+					{{ form_row(form.prix, {'label': 'Prix'}) }}
+					{{ form_row(form.auteur, {'label': 'auteur'}) }}
+					{{ form_end(form) }}
+					<button type="submit" class="btn btn-primary">Modifier</button>
+					<a href="{{ path('Livre_show', {'id': Livre.id}) }}" class="btn btn-secondary">Retour à la description</a>
+					<a href="{{ path('Livre_index') }}" class="btn btn-info">Retour à la liste</a>
+				</center>
+			</div>
+		</section>
+	</center>
+	<script>
+		// Sélectionne l'élément d'entrée d'URL de l'image et l'élément d'image pour la prévisualisation
+const imageUrlInput = document.getElementById('{{ form.imageUrl.vars.id }}');
+const imagePreview = document.getElementById('imagePreview');
+
+// Ajoute un écouteur d'événement pour détecter les changements dans le champ de l'URL de l'image
+imageUrlInput.addEventListener('input', function () {
+const imageUrl = imageUrlInput.value.trim();
+
+if (imageUrl) { // Met à jour la source de l'image
+imagePreview.src = imageUrl;
+imagePreview.style.display = 'block'; // Affiche l'image
+} else {
+imagePreview.style.display = 'none'; // Cache l'image si le champ est vide
+}
+});
+	</script>
+
+	<style>
+		.form-control {
+			color: red;
+			text-decoration: 2px solid black underline;
+		}
+		.form-container {
+			max-width: 600px;
+			margin: 50px auto;
+			background: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		.form-container h2 {
+			margin-bottom: 20px;
+		}
+		.form-container .btn {
+			margin-top: 10px;
+			margin-right: 5px;
+		}
+	</style>
+
+{% endblock %}

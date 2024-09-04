@@ -1,0 +1,111 @@
+{# templates/Livre/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos livres, mangas, DVD ou jeux -
+	{{ Livre.titre }}
+{% endblock %}
+
+{% block body %}
+	<h1>Détails du livre, manga, DVD ou jeu</h1>
+	<center>
+		<div class="container">
+			<div class="">
+				<div class="col-md-6">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h5 class="card-title">{{ Livre.titre }}</h5>
+							<div class="mb-3">
+								<strong>Image :</strong><br>
+								{% if Livre.imageUrl %}
+									<img src="{{ Livre.imageUrl }}" alt="{{ Livre.titre }}" class="img-fluid img-thumbnail" style="max-width: 200px; height: auto;">
+								{% else %}
+									<span>Pas d'image</span>
+								{% endif %}
+							</div>
+							<div class="mb-3">
+								<strong>Catégorie :</strong><br>
+								{{ Livre.categorie ? Livre.categorie : 'Non renseigné' }}
+							</div>
+							<div class="mb-3">
+								<strong>Tome :</strong><br>
+								{{ Livre.tome ? Livre.tome : 'Non renseigné' }}
+							</div>
+							<div class="mb-3">
+								<strong>Prix :</strong><br>
+								{{ Livre.prix ? Livre.prix ~ ' €' : 'Non renseigné' }}
+							</div>
+							<div class="mb-3">
+								<strong>Auteur :</strong><br>
+								{{ Livre.auteur ? Livre.auteur : 'Non renseigné' }}
+							</div>
+							<div class="mb-3">
+								<strong>Description :</strong><br>
+								{# {{ Livre.auteur ? Livre.auteur : 'Non renseigné' }} #}
+							</div>
+							<div class="mb-3">
+								<a href="{{ path('Livre_index') }}" class="btn btn-secondary">Retour à la liste</a>
+								<a href="{{ path('Livre_edit', {'id': Livre.id}) }}" class="btn btn-primary">Modifier</a>
+								<form action="{{ path('Livre_delete', {'id': Livre.id}) }}" method="post" style="display: inline-block;">
+									<input type="hidden" name="_method" value="DELETE">
+									<button type="submit" class="btn btn-danger">Supprimer</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</center>
+	<style>
+		.card {
+			border-radius: 15px;
+			background-color: #f9f9f9;
+			text-align: left;
+		}
+
+		.card img {
+			border-radius: 10px;
+			max-width: 100%;
+			height: auto;
+		}
+
+		.card h1 {
+			font-size: 1.5rem;
+			color: #333;
+
+
+		}
+		h5 {
+			text-transform: uppercase;
+		}
+		.card h4 {
+			font-weight: bold;
+			color: #555;
+		}
+
+		.card p {
+			font-size: 1rem;
+			color: #333;
+		}
+
+		.btn {
+			font-size: 0.875rem;
+		}
+
+		.btn-secondary {
+			background-color: #6c757d;
+			border-color: #6c757d;
+		}
+
+		.btn-primary {
+			background-color: #007bff;
+			border-color: #007bff;
+		}
+
+		.btn-danger {
+			background-color: #dc3545;
+			border-color: #dc3545;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,68 @@
+{# templates/Livre/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos livre, manga, dvd ou jeux
+{% endblock %}
+{% block body %}
+	<center>
+		<h1>Ajouter un livre, manga, dvd ou jeux</h1>
+		<section>
+			<div class="form-container">
+				<center>
+					{{ form_start(form) }}
+					{{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+					<div style="margin-top: 10px;">
+						<img id="imagePreview" src="" alt="Prévisualisation de l'image" style="max-width: 150px; display: none;"/>
+					</div>
+					<button type="submit" class="btn btn-primary">Ajouter</button>
+					{{ form_end(form) }}
+					<a href="{{ path('Livre_index') }}" class="btn btn-secondary">Retour à la liste</a>
+				</center>
+			</div>
+		</section>
+
+	</center>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+		// Sélectionne l'élément d'entrée d'URL de l'image et l'élément d'image pour la prévisualisation
+const imageUrlInput = document.getElementById('{{ form.imageUrl.vars.id }}');
+const imagePreview = document.getElementById('imagePreview');
+
+// Ajoute un écouteur d'événement pour détecter les changements dans le champ de l'URL de l'image
+imageUrlInput.addEventListener('input', function () {
+const imageUrl = imageUrlInput.value.trim();
+
+if (imageUrl) { // Met à jour la source de l'image
+imagePreview.src = imageUrl;
+imagePreview.style.display = 'block'; // Affiche l'image
+} else {
+imagePreview.style.display = 'none'; // Cache l'image si le champ est vide
+}
+});
+	</script>
+	<style>
+		.form-control {
+			color: red;
+			text-decoration: 2px solid black underline;
+		}
+		.form-container {
+			max-width: 600px;
+			margin: 50px auto;
+			background: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		.form-container h2 {
+			margin-bottom: 20px;
+		}
+		.form-container .btn {
+			margin-top: 10px;
+			margin-right: 5px;
+		}
+	</style>
+
+{% endblock %}
